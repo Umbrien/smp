@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# usage: ./t14.sh yurii@nure.ua
+# usage: ./level-1_task-14.sh yurii@nure.ua
 
-# get username, domain sufix from email
+# Витягнути нікнейм користувача, ім’я домену та суфікс із даних e-mail адреси.
 
 echo Username: $(
   echo $1 | awk -F"@" '{print $1}'
