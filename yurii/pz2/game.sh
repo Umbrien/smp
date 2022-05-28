@@ -99,7 +99,8 @@ echoOpenUnequal() {
 prize_door=$(shuf -i 1-3 -n 1)
 
 clear
-echo "Enter your choice: $prize_door"
+echo "Choose door (1-3)"
+#echo "Choose door (1-3) ($prize_door)"
 echo3closed
 read -n 1 choice ; printf "\b"
 echoUchoice $choice
