@@ -35,13 +35,16 @@ class ProductContainer {
 class Store {
   var array $productContainers; # array<ProductContainer>
 
-  private function printAssortment() {
-    echo "# | Product | Price | Amount | Min age\n";
+  private function printAssortment(User $user) {
+    echo "# | Product | Price | Amount\n";
 
     foreach ($this->productContainers as $index => $container) {
       $product = $container->product;
-      $restriction = ($product->minAge > 0) ? "$product->minAge" : "-";
-      echo "$index | $product->name | $product->price | $container->amount | $restriction\n";
+      $number = $index + 1;
+      if($product->minAge <= $user->age)
+      #$restriction = ($product->minAge > 0) ? "$product->minAge" : "-";
+      #echo "$index | $product->name | $product->price | $container->amount | $restriction\n";
+      echo "$number | $product->name | $product->price | $container->amount\n";
     }
   }
 
@@ -49,11 +52,13 @@ class Store {
     $this->productContainers = $productContainers;
   }
 
-  public function selectProduct() {
-    $this->printAssortment();
+  public function selectProduct(User $user) {
+    $this->printAssortment($user);
 
     $num = readline("Number> ");
-    while (!($num <= count($this->productContainers) && $num >= 0)) {
+    if($num == 0) return;
+    while (!($num <= count($this->productContainers) && $num > 0)) {
+      if($num == 0) return;
       echo "Wrong number\n";
       $num = readline("Number> ");
     }
@@ -112,34 +117,40 @@ class User {
 }
 $user = new User;
 
-echo "/////////////////////\n";
-echo "////// Магазин //////\n";
-echo "/////////////////////\n";
-echo "\n";
-echo "Розпочати покупки - \"1\"\n";
-echo "Отримати пiдсумковий рахунок - \"3\"\n";
-echo "Налаштування профiлю - \"2\"\n";
-echo "Вихiд iз програми - \"0\"\n";
-
-$choice = readline("> ");
-
-while ($choice < 0 || $choice > 3) {
-  echo "Помилка!\n";
-  $choice = readline("Пропонуемо вам ввести iнше число: ");
+function printMenu() {
+  echo "/////////////////////\n";
+  echo "////// Магазин //////\n";
+  echo "/////////////////////\n";
+  echo "\n";
+  echo "Розпочати покупки - \"1\"\n";
+  echo "Отримати пiдсумковий рахунок - \"3\"\n";
+  echo "Налаштування профiлю - \"2\"\n";
+  echo "Вихiд iз програми - \"0\"\n";
 }
 
-switch ($choice) {
-  case 1:
-    $store->selectProduct();
-    break;
-  case 3:
-    echo "Will add later\n";
-    break;
-  case 2:
-    $user->configureProfile();
-    break;
-  case 0:
-    break;
+$choice = 4;
+
+while ($choice > 0) {
+  printMenu();
+  $choice = readline("> ");
+
+  while ($choice < 0 || $choice > 3) {
+    echo "Помилка!\n";
+    $choice = readline("Пропонуемо вам ввести iнше число: ");
+  }
+
+  switch ($choice) {
+    case 1:
+      $store->selectProduct($user);
+      break;
+    case 3:
+      echo "Will add later\n";
+      break;
+    case 2:
+      $user->configureProfile();
+      break;
+    default: break;
+  }
 }
 
 ?>
