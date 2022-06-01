@@ -21,8 +21,14 @@ class ProductContainer {
   }
 
   public function takeProduct(int $takeAmount = 1) {
-    if ($takeAmount > $amount) $this->amount = 0;
-    else $this->amount -= $amount;
+    if ($takeAmount > $amount){
+      $oldAmount = $this->amount;
+      $this->amount = 0;
+      return $oldAmount;
+    } else {
+      $this->amount -= $amount;
+      return $amount;
+    }
   }
 }
 
@@ -37,6 +43,10 @@ class Store {
       $restriction = ($product->minAge > 0) ? "$product->minAge" : "-";
       echo "$index | $product->name | $product->price | $container->amount | $restriction\n";
     }
+  }
+
+  public function __construct(array $productContainers = array()) {
+    $this->productContainers = $productContainers;
   }
 
   public function selectProduct() {
@@ -59,11 +69,10 @@ class Store {
   }
 }
 
-$store = new Store;
-$store->productContainers = array(
+$store = new Store(array(
   new ProductContainer(new Product("Кавун", 56), ),
   new ProductContainer(new Product("Бурбон", 124.6, 18), 4),
-);
+));
 
 class User {
   var string $name;
