@@ -53,6 +53,11 @@ class Store {
   }
 
   public function selectProduct(User $user) {
+    if ($user->age == 0) {
+      echo "You must register first\n";
+      return;
+    }
+
     $this->printAssortment($user);
 
     $num = readline("Number> ");
@@ -81,7 +86,7 @@ $store = new Store(array(
 
 class User {
   var string $name = "Don Deemon";
-  var int $age = 4;
+  var int $age = 0;
 
   public function setAge(int $age) {
     if ($age > 3 && $age < 200) {
