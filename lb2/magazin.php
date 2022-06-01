@@ -60,14 +60,14 @@ class Store {
 
     $this->printAssortment($user);
 
-    $num = readline("Number> ") - 1;
+    $num = readline("Number> ");
     if($num == 0) return;
     while (!($num <= count($this->productContainers) && $num > 0)) {
       if($num == 0) return;
       echo "Wrong number\n";
       $num = readline("Number> ");
     }
-    $selectedProductAmount = $this->productContainers[$num]->amount;
+    $selectedProductAmount = $this->productContainers[$num - 1]->amount;
 
     $amount = readline("Amount> ");
     while (!($amount <= $selectedProductAmount && $amount >= 1)) {
@@ -75,7 +75,7 @@ class Store {
       $amount = readline("Amount> ");
     }
 
-    $takkenContainer = $this->productContainers[$num]->takeProduct($amount);
+    $takkenContainer = $this->productContainers[$num - 1]->takeProduct($amount);
     array_push($cart->productContainers, $takkenContainer);
     echo "Product added to card successfully\n";
   }
@@ -124,8 +124,27 @@ class User {
 }
 $user = new User;
 
+# TODO show product again and again in buying menu
 class ShoppingCart {
   var array $productContainers = array(); # array<ProductContainer>
+
+  public function printCheck() {
+    if (empty($this->productContainers)) {
+      echo "Cart is empty. Wanna buy some products?\n";
+      return;
+    }
+
+    $total = 0;
+    foreach($this->productContainers as $container) {
+      $product = $container->product;
+      $categoryPrice = $product->price * $container->amount;
+      echo "$product->name | $product->price * $container->amount = $categoryPrice\n";
+      $total += $categoryPrice;
+    }
+
+    echo "- - - - - - - \n";
+    echo "Total: \$$total\n";
+  }
 }
 $shoppingCart = new ShoppingCart;
 
@@ -156,7 +175,7 @@ while ($choice > 0) {
       $store->selectProduct($user, $shoppingCart);
       break;
     case 3:
-      echo "Will add later\n";
+      $shoppingCart->printCheck();
       break;
     case 2:
       $user->configureProfile();
