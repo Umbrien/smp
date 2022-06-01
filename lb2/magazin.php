@@ -29,14 +29,33 @@ class ProductContainer {
 class Store {
   var array $productContainers; # array<ProductContainer>
 
-  public function printAssortment() {
-    echo "# | Product | Price | Amount | Age restriction\n";
+  private function printAssortment() {
+    echo "# | Product | Price | Amount | Min age\n";
 
     foreach ($this->productContainers as $index => $container) {
       $product = $container->product;
       $restriction = ($product->minAge > 0) ? "$product->minAge" : "-";
       echo "$index | $product->name | $product->price | $container->amount | $restriction\n";
     }
+  }
+
+  public function selectProduct() {
+    $this->printAssortment();
+
+    $num = readline("Number> ");
+    while (!($num <= count($this->productContainers) && $num >= 0)) {
+      echo "Wrong number\n";
+      $num = readline("Number> ");
+    }
+    $selectedProductAmount = $this->productContainers[$num]->amount;
+
+    $amount = readline("Amount> ");
+    while (!($amount <= $selectedProductAmount && $amount >= 1)) {
+      echo "Wrong amount\n";
+      $amount = readline("Amount> ");
+    }
+
+    echo "product #$num x$amount";
   }
 }
 
@@ -69,7 +88,7 @@ while ($choice < 0 || $choice > 3) {
 
 switch ($choice) {
   case 1:
-    $store->printAssortment();
+    $store->selectProduct();
     break;
   case 3:
     echo "Will add later\n";
