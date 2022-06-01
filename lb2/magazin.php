@@ -75,9 +75,42 @@ $store = new Store(array(
 ));
 
 class User {
-  var string $name;
-  var int $age;
+  var string $name = "Don Deemon";
+  var int $age = 4;
+
+  public function setAge(int $age) {
+    if ($age > 3 && $age < 200) {
+      $this->age = $age;
+      return $age;
+    }
+    return 0;
+  }
+
+  public function configureProfile() {
+    $changeChoice = 3;
+
+    while ($changeChoice != 0) {
+      echo "Name: $this->name\n";
+      echo "Age: $this->age\n";
+      echo "What do you want to change? (1/2/0)\n";
+      $changeChoice = readline("> ");
+      switch ($changeChoice) {
+        case 1:
+          $this->name = readline("Enter new name: ");
+          break;
+        case 2:
+          $newAge = readline("Enter new age: ");
+          while(!($this->setAge($newAge))) {
+            echo "Age must be between 3 and 200\n";
+            $newAge = readline("Enter new age: ");
+          }
+          break;
+        default: break;
+      }
+    }
+  }
 }
+$user = new User;
 
 echo "/////////////////////\n";
 echo "////// Магазин //////\n";
@@ -103,7 +136,7 @@ switch ($choice) {
     echo "Will add later\n";
     break;
   case 2:
-    echo "Will add later\n";
+    $user->configureProfile();
     break;
   case 0:
     break;
