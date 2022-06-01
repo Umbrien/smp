@@ -20,14 +20,14 @@ class ProductContainer {
     $this->amount = $amount;
   }
 
-  public function takeProduct(int $takeAmount = 1) {
-    if ($takeAmount > $amount){
+  public function takeProduct(int $amount = 1) {
+    if ($amount > $this->amount){
       $oldAmount = $this->amount;
       $this->amount = 0;
-      return $oldAmount;
+      return new ProductContainer($this->product, $oldAmount);
     } else {
       $this->amount -= $amount;
-      return $amount;
+      return new ProductContainer($this->product, $amount);
     }
   }
 }
@@ -52,7 +52,7 @@ class Store {
     $this->productContainers = $productContainers;
   }
 
-  public function selectProduct(User $user) {
+  public function selectProduct(User $user, ShoppingCart $cart) {
     if ($user->age == 0) {
       echo "You must register first\n";
       return;
@@ -60,7 +60,7 @@ class Store {
 
     $this->printAssortment($user);
 
-    $num = readline("Number> ");
+    $num = readline("Number> ") - 1;
     if($num == 0) return;
     while (!($num <= count($this->productContainers) && $num > 0)) {
       if($num == 0) return;
@@ -75,7 +75,9 @@ class Store {
       $amount = readline("Amount> ");
     }
 
-    echo "product #$num x$amount";
+    $takkenContainer = $this->productContainers[$num]->takeProduct($amount);
+    array_push($cart->productContainers, $takkenContainer);
+    echo "Product added to card successfully\n";
   }
 }
 
@@ -122,6 +124,11 @@ class User {
 }
 $user = new User;
 
+class ShoppingCart {
+  var array $productContainers = array(); # array<ProductContainer>
+}
+$shoppingCart = new ShoppingCart;
+
 function printMenu() {
   echo "/////////////////////\n";
   echo "////// Магазин //////\n";
@@ -146,7 +153,7 @@ while ($choice > 0) {
 
   switch ($choice) {
     case 1:
-      $store->selectProduct($user);
+      $store->selectProduct($user, $shoppingCart);
       break;
     case 3:
       echo "Will add later\n";
