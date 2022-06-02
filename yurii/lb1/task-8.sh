@@ -6,14 +6,14 @@
 
 if [ $# -lt 1 ]; then
   echo "Usage: $0 [<args>]"
+else
+  shift 9
+
+  printf "I can access "
+  while (($#)); do
+    printf "$1 "
+    shift
+  done
+  echo
+
 fi
-
-shift 9
-
-printf "I can access "
-while (($#)); do
-  printf "$1 "
-  shift
-done
-echo
-
