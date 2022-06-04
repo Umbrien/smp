@@ -1,51 +1,27 @@
 #!/bin/bash
 
 case $1 in
-
   1)
-    echo "one"
-    ;;
-
+    echo "one" ;;
   2)
-    echo "two"
-    ;;
-
+    echo "two" ;;
   3)
-    echo "three"
-    ;;
-
+    echo "three" ;;
   4)
-    echo "four"
-    ;;
-
+    echo "four" ;;
   5)
-    echo "five"
-    ;;
-
+    echo "five" ;;
   6)
-    echo "six"
-    ;;
-
+    echo "six" ;;
   7)
-    echo "seven"
-    ;;
-
+    echo "seven" ;;
   8)
-    echo "eight"
-    ;;
-
+    echo "eight" ;;
   9)
-    echo "nine"
-    ;;
-
+    echo "nine" ;;
   0)
-    echo "zero"
-    ;;
-
+    echo "zero" ;;
   *)
-    echo "not a digit"
-    ;;
-
+    echo "not a digit" ;;
 esac
-
 
