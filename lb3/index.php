@@ -10,10 +10,10 @@
 <body>
     <?php include 'header.phtml' ?>
     <div class="container">
-    <form action="index.php">
-        <input type="checkbox"> Fanta <input type="number" value="0"> $1 <br>
-        <input type="checkbox"> Sprite <input type="number" value="3"> $1 <br>
-        <input type="checkbox"> Nuts <input type="number" value="0"> $1 <br>
+    <form action="cart.php" method="get">
+        <input type="checkbox" name="fanta_bool"> Fanta <input type="number" value="0" name="fanta_amount"> $6 <br>
+        <input type="checkbox" name="sprite_bool"> Sprite <input type="number" value="3" name="sprite_amount"> $14 <br>
+        <input type="checkbox" name="nuts_bool"> Nuts <input type="number" value="0" name="nuts_amount"> $5.2 <br>
 
         <input type="submit" value="Send" class="btn btn-success">
     </form>

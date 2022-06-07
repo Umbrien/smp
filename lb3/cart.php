@@ -25,7 +25,14 @@
         </thead>
         <tbody>
         <tr>
-            <td>1</td> <td>phone1</td> <td>4.00</td> <td>2</td> <td>8.00</td> <td>bin</td>
+            <?php
+                $fanta_sum = isset($_GET["fanta_bool"]) ? $_GET["fanta_amount"] * 6.0 : 0;
+                if (isset($_GET["fanta_bool"])) {
+                    echo "<td>1</td> <td>Fanta</td> <td>6.00</td> <td>" . $_GET["fanta_amount"] . "</td> <td>".
+                        $fanta_sum .
+                    "</td> <td>bin</td>";
+                }
+            ?>
         </tr>
         <tr>
             <td>2</td> <td>phone2</td> <td>6.00</td> <td>1</td> <td>6.00</td> <td>bin</td>
