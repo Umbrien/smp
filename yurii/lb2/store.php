@@ -1,50 +1,15 @@
 <?php
-class Product {
-  var string $name;
-  var float $price;
-  var int $minAge;
-
-  public function __construct(string $name, float $price, int $minAge = 0) {
-    $this->name = $name;
-    $this->price = $price;
-    $this->minAge = $minAge;
-  }
-}
-
-class ProductContainer {
-  var Product $product;
-  var int $amount;
-
-  public function __construct(Product $product, int $amount = 1) {
-    $this->product = $product;
-    $this->amount = $amount;
-  }
-
-  public function takeProduct(int $amount = 1) {
-    if ($amount > $this->amount){
-      $oldAmount = $this->amount;
-      $this->amount = 0;
-      return new ProductContainer($this->product, $oldAmount);
-    } else {
-      $this->amount -= $amount;
-      return new ProductContainer($this->product, $amount);
-    }
-  }
-}
-
 class Store {
-  var array $productContainers; # array<ProductContainer>
+  var array $productContainers;
 
-  private function printAssortment(User $user) {
+  private function printAssortment(StoreUser $user) {
     echo "# | Продукт | Цена | Кол-во\n";
 
     foreach ($this->productContainers as $index => $container) {
       $product = $container->product;
       $number = $index + 1;
-      if($product->minAge <= $user->age)
-      #$restriction = ($product->minAge > 0) ? "$product->minAge" : "-";
-      #echo "$index | $product->name | $product->price | $container->amount | $restriction\n";
-      echo "$number | $product->name | $product->price | $container->amount\n";
+      if($product->minimalAgeAllowed <= $user->userAge)
+      echo "$number | $product->userName | $product->price | $container->amount\n";
     }
   }
 
@@ -52,8 +17,8 @@ class Store {
     $this->productContainers = $productContainers;
   }
 
-  public function selectProduct(User $user, ShoppingCart $cart) {
-    if ($user->age == 0) {
+  public function selectProduct(StoreUser $user, ShoppingCart $cart) {
+    if ($user->userAge == 0) {
       echo "Сначала нужно зарегистрироваться\n";
       return;
     }
@@ -81,53 +46,41 @@ class Store {
   }
 }
 
-$store = new Store(array(
-  new ProductContainer(new Product("Колбаса", 96.43), ),
-  new ProductContainer(new Product("Хлеб", 19.21), 20 ),
-  new ProductContainer(new Product("Алкогольный энергетик", 74.1, 18), 4),
-));
+class StoreProduct {
+  var string $userName;
+  var float $price;
+  var int $minimalAgeAllowed;
 
-class User {
-  var string $name = "Юрий";
-  var int $age = 0;
+  public function __construct(string $userName, float $price, int $minimalAgeAllowed = 0) {
+    $this->userName = $userName;
+    $this->price = $price;
+    $this->minimalAgeAllowed = $minimalAgeAllowed;
+  }
+}
 
-  public function setAge(int $age) {
-    if ($age > 3 && $age < 200) {
-      $this->age = $age;
-      return $age;
-    }
-    return 0;
+class ProductWithAmount {
+  var StoreProduct $product;
+  var int $amount;
+
+  public function __construct(StoreProduct $product, int $amount = 1) {
+    $this->product = $product;
+    $this->amount = $amount;
   }
 
-  public function configureProfile() {
-    $changeChoice = 3;
-
-    while ($changeChoice != 0) {
-      echo "Имя: $this->name\n";
-      echo "Возраст: $this->age\n";
-      echo "Что требуется изменить? (1/2/0)\n";
-      $changeChoice = readline("> ");
-      switch ($changeChoice) {
-        case 1:
-          $this->name = readline("Новое имя: ");
-          break;
-        case 2:
-          $newAge = readline("Новый возраст: ");
-          while(!($this->setAge($newAge))) {
-            echo "Возраст должен быть между 3 и 200\n";
-            $newAge = readline("Новый возраст: ");
-          }
-          break;
-        default: break;
-      }
+  public function takeProduct(int $amount = 1) {
+    if ($amount > $this->amount){
+      $oldAmount = $this->amount;
+      $this->amount = 0;
+      return new ProductWithAmount($this->product, $oldAmount);
+    } else {
+      $this->amount -= $amount;
+      return new ProductWithAmount($this->product, $amount);
     }
   }
 }
-$user = new User;
 
-# TODO show product again and again in buying menu
 class ShoppingCart {
-  var array $productContainers = array(); # array<ProductContainer>
+  var array $productContainers = array();
 
   public function printCheck() {
     if (empty($this->productContainers)) {
@@ -142,7 +95,7 @@ class ShoppingCart {
     foreach($this->productContainers as $container) {
       $product = $container->product;
       $categoryPrice = $product->price * $container->amount;
-      echo "$product->name | $product->price * $container->amount = $categoryPrice\n";
+      echo "$product->userName | $product->price * $container->amount = $categoryPrice\n";
       $total += $categoryPrice;
     }
 
@@ -151,6 +104,50 @@ class ShoppingCart {
   }
 }
 $shoppingCart = new ShoppingCart;
+
+$store = new Store(array(
+  new ProductWithAmount(new StoreProduct("Колбаса", 96.43), ),
+  new ProductWithAmount(new StoreProduct("Хлеб", 19.21), 20 ),
+  new ProductWithAmount(new StoreProduct("Алкогольный энергетик", 74.1, 18), 4),
+));
+
+class StoreUser {
+  var string $userName = "Юрий";
+  var int $userAge = 0;
+
+  public function setAge(int $userAge) {
+    if ($userAge > 3 && $userAge < 200) {
+      $this->userAge = $userAge;
+      return $userAge;
+    }
+    return 0;
+  }
+
+  public function configureProfile() {
+    $changeChoice = 3;
+
+    while ($changeChoice != 0) {
+      echo "Имя: $this->userName\n";
+      echo "Возраст: $this->userAge\n";
+      echo "Что требуется изменить? (1/2/0)\n";
+      $changeChoice = readline("> ");
+      switch ($changeChoice) {
+        case 1:
+          $this->userName = readline("Новое имя: ");
+          break;
+        case 2:
+          $newAge = readline("Новый возраст: ");
+          while(!($this->setAge($newAge))) {
+            echo "Возраст должен быть между 3 и 200\n";
+            $newAge = readline("Новый возраст: ");
+          }
+          break;
+        default: break;
+      }
+    }
+  }
+}
+$user = new StoreUser;
 
 function printMenu() {
   echo "---------------------\n";
@@ -163,18 +160,18 @@ function printMenu() {
   echo "Выход - \"0\"\n";
 }
 
-$choice = 4;
+$userChoice = 4;
 
-while ($choice > 0) {
+while ($userChoice > 0) {
   printMenu();
-  $choice = readline("> ");
+  $userChoice = readline("> ");
 
-  while ($choice < 0 || $choice > 3) {
+  while ($userChoice < 0 || $userChoice > 3) {
     echo "Ошибка!\n";
-    $choice = readline("Предлагаем ввести другое число: ");
+    $userChoice = readline("Предлагаем ввести другое число: ");
   }
 
-  switch ($choice) {
+  switch ($userChoice) {
     case 1:
       $store->selectProduct($user, $shoppingCart);
       break;
