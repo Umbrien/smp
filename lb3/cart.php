@@ -1,3 +1,16 @@
+<?php
+session_start();
+$total = 0;
+if ($_POST['fanta_bool']) {
+    $_SESSION['fanta_amount'] = $_POST['fanta_amount'];
+}
+if ($_POST['sprite_bool']) {
+    $_SESSION['sprite_amount'] = $_POST['sprite_amount'];
+}
+if ($_POST['nuts_bool']) {
+    $_SESSION['nuts_amount'] = $_POST['nuts_amount'];
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,19 +39,41 @@
         <tbody>
         <tr>
             <?php
-                $fanta_sum = isset($_GET["fanta_bool"]) ? $_GET["fanta_amount"] * 6.0 : 0;
-                if (isset($_GET["fanta_bool"])) {
-                    echo "<td>1</td> <td>Fanta</td> <td>6.00</td> <td>" . $_GET["fanta_amount"] . "</td> <td>".
-                        $fanta_sum .
+                $sum = isset($_SESSION["fanta_amount"]) ? $_SESSION["fanta_amount"] * 6.0 : 0;
+                if (isset($_SESSION["fanta_amount"])) {
+                    echo "<td>1</td> <td>Fanta</td> <td>6.00</td> <td>" . $_SESSION["fanta_amount"] . "</td> <td>".
+                        $sum .
                     "</td> <td>bin</td>";
+                    $total += $sum;
                 }
             ?>
         </tr>
         <tr>
-            <td>2</td> <td>phone2</td> <td>6.00</td> <td>1</td> <td>6.00</td> <td>bin</td>
+            <?php
+                $sum = isset($_SESSION["sprite_amount"]) ? $_SESSION["sprite_amount"] * 14.0 : 0;
+                if (isset($_SESSION["sprite_amount"])) {
+                    echo "<td>2</td> <td>Sprite</td> <td>14.00</td> <td>" . $_SESSION["sprite_amount"] . "</td> <td>".
+                        $sum .
+                    "</td> <td>bin</td>";
+                    $total += $sum;
+                }
+            ?>
         </tr>
         <tr>
-            <td>Total</td> <td></td> <td></td> <td></td> <td>14.00</td> <td></td>
+            <?php
+                $sum = isset($_SESSION["nuts_amount"]) ? $_SESSION["nuts_amount"] * 14.0 : 0;
+                if (isset($_SESSION["nuts_amount"])) {
+                    echo "<td>3</td> <td>Nuts</td> <td>5.2</td> <td>" . $_SESSION["nuts_amount"] . "</td> <td>".
+                        $sum .
+                    "</td> <td>bin</td>";
+                    $total += $sum;
+                }
+            ?>
+        </tr>
+        <tr>
+            <?php
+            echo "<td>Total</td> <td></td> <td></td> <td></td> <td>$total</td> <td></td>";
+            ?>
         </tr>
         </tbody>
     </table>
