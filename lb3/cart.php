@@ -49,7 +49,7 @@ if ($_POST['nuts_bool']) {
 </head>
 <body>
     <?php include 'header.phtml' ?>
-    <h2 class="text-center">Cart is empty</h2>
+    <h2 class="text-center">Cart</h2>
     <div class="container">
 
     <table class="table table-striped table-bordered border-warning">
@@ -121,6 +121,7 @@ if ($_POST['nuts_bool']) {
     </table>
     <input type="button" class="btn btn-danger" value="Cancel">
     <input type="button" class="btn btn-success" value="pay">
+    <?php if ($total == 0) echo '<h5>Cart is empty. Go to <a href="index.php">shop</a></h5><br>'; ?>
     </div>
     <?php include 'footer.html' ?>
 </body>
