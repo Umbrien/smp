@@ -7,6 +7,11 @@ if ($_POST['fanta_bool']) {
     } else {
         $_SESSION['fanta_amount'] = $_POST['fanta_amount'];
     }
+} else {
+    if($_POST['delete_fanta']) {
+        unset($_SESSION['fanta_bool']);
+        unset($_SESSION['fanta_amount']);
+    }
 }
 if ($_POST['sprite_bool']) {
     if (isset($_SESSION['sprite_amount'])) {
@@ -14,12 +19,22 @@ if ($_POST['sprite_bool']) {
     } else {
         $_SESSION['sprite_amount'] = $_POST['sprite_amount'];
     }
+} else {
+    if($_POST['delete_sprite']) {
+        unset($_SESSION['sprite_bool']);
+        unset($_SESSION['sprite_amount']);
+    }
 }
 if ($_POST['nuts_bool']) {
     if (isset($_SESSION['nuts_amount'])) {
         $_SESSION['nuts_amount'] += $_POST['nuts_amount'];
     } else {
         $_SESSION['nuts_amount'] = $_POST['nuts_amount'];
+    }
+} else {
+    if($_POST['delete_nuts']) {
+        unset($_SESSION['nuts_bool']);
+        unset($_SESSION['nuts_amount']);
     }
 }
 ?>
@@ -55,7 +70,12 @@ if ($_POST['nuts_bool']) {
                 if (isset($_SESSION["fanta_amount"])) {
                     echo "<td>1</td> <td>Fanta</td> <td>6.00</td> <td>" . $_SESSION["fanta_amount"] . "</td> <td>".
                         $sum .
-                    "</td> <td>bin</td>";
+                    '</td> <td>
+                        <form action="cart.php" method="POST">
+                        <input type="checkbox" name="delete_fanta" checked class="d-none">
+                        <input type="submit" value="Delete" >
+                        </form>
+                    </td>';
                     $total += $sum;
                 }
             ?>
@@ -66,7 +86,12 @@ if ($_POST['nuts_bool']) {
                 if (isset($_SESSION["sprite_amount"])) {
                     echo "<td>2</td> <td>Sprite</td> <td>14.00</td> <td>" . $_SESSION["sprite_amount"] . "</td> <td>".
                         $sum .
-                    "</td> <td>bin</td>";
+                    '</td> <td>
+                        <form action="cart.php" method="POST">
+                        <input type="checkbox" name="delete_sprite" checked class="d-none">
+                        <input type="submit" value="Delete" >
+                        </form>
+                    </td>';
                     $total += $sum;
                 }
             ?>
@@ -77,7 +102,12 @@ if ($_POST['nuts_bool']) {
                 if (isset($_SESSION["nuts_amount"])) {
                     echo "<td>3</td> <td>Nuts</td> <td>5.2</td> <td>" . $_SESSION["nuts_amount"] . "</td> <td>".
                         $sum .
-                    "</td> <td>bin</td>";
+                    '</td> <td>
+                        <form action="cart.php" method="POST">
+                        <input type="checkbox" name="delete_nuts" checked class="d-none">
+                        <input type="submit" value="Delete" >
+                        </form>
+                    </td>';
                     $total += $sum;
                 }
             ?>

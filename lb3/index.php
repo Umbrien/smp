@@ -8,6 +8,12 @@ $nuts_max = 50;
 if (isset($_SESSION['fanta_amount'])) {
     $fanta_max -= $_SESSION['fanta_amount'];
 }
+if (isset($_SESSION['sprite_amount'])) {
+    $sprite_max -= $_SESSION['sprite_amount'];
+}
+if (isset($_SESSION['nuts_amount'])) {
+    $nuts_max -= $_SESSION['nuts_amount'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
