@@ -82,7 +82,7 @@ class ProductWithAmount {
 class ShoppingCart {
   var array $productContainers = array();
 
-  public function printCheck() {
+  public function printCheck(StoreUser $user) {
     if (empty($this->productContainers)) {
       echo "Корзина пуста. Желаете купить что-нибудь?\n";
       return;
@@ -93,10 +93,12 @@ class ShoppingCart {
     echo "- - - - - - - \n";
     $total = 0;
     foreach($this->productContainers as $container) {
-      $product = $container->product;
-      $categoryPrice = $product->price * $container->amount;
-      echo "$product->userName | $product->price * $container->amount = $categoryPrice\n";
-      $total += $categoryPrice;
+      if ($user->userAge >= $container->product->minimalAgeAllowed) {
+        $product = $container->product;
+        $categoryPrice = $product->price * $container->amount;
+        echo "$product->userName | $product->price * $container->amount = $categoryPrice\n";
+        $total += $categoryPrice;
+      }
     }
 
     echo "- - - - - - - \n";
@@ -176,7 +178,7 @@ while ($userChoice > 0) {
       $store->selectProduct($user, $shoppingCart);
       break;
     case 3:
-      $shoppingCart->printCheck();
+      $shoppingCart->printCheck($user);
       break;
     case 2:
       $user->configureProfile();
