@@ -2,13 +2,25 @@
 session_start();
 $total = 0;
 if ($_POST['fanta_bool']) {
-    $_SESSION['fanta_amount'] = $_POST['fanta_amount'];
+    if (isset($_SESSION['fanta_amount'])) {
+        $_SESSION['fanta_amount'] += $_POST['fanta_amount'];
+    } else {
+        $_SESSION['fanta_amount'] = $_POST['fanta_amount'];
+    }
 }
 if ($_POST['sprite_bool']) {
-    $_SESSION['sprite_amount'] = $_POST['sprite_amount'];
+    if (isset($_SESSION['sprite_amount'])) {
+        $_SESSION['sprite_amount'] += $_POST['sprite_amount'];
+    } else {
+        $_SESSION['sprite_amount'] = $_POST['sprite_amount'];
+    }
 }
 if ($_POST['nuts_bool']) {
-    $_SESSION['nuts_amount'] = $_POST['nuts_amount'];
+    if (isset($_SESSION['nuts_amount'])) {
+        $_SESSION['nuts_amount'] += $_POST['nuts_amount'];
+    } else {
+        $_SESSION['nuts_amount'] = $_POST['nuts_amount'];
+    }
 }
 ?>
 <!DOCTYPE html>
