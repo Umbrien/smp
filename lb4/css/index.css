@@ -1,0 +1,16 @@
+body {
+    background-color: goldenrod;
+}
+
+header {
+    width: 100%;
+    background-color: maroon;
+    padding: 20px;
+}
+
+footer {
+    width: 100%;
+    background-color: maroon;
+    padding: 20px;
+    text-align: center;
+}
