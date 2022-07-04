@@ -4,7 +4,7 @@ session_start();
 $user = array(
     "login" => "flusq",
     "password" => "123",
-    "avatar" => "avatar.php",
+    "avatar" => "img/placeholder.png",
 );
 
 $login = $_POST['login'];
