@@ -4,6 +4,12 @@ session_start();
 if(!isset($_SESSION['login'])) {
     header('Location: page404.php');
 }
+
+if(isset($_POST['logout'])) {
+    session_destroy();
+    header('Location: login.php');
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -18,6 +24,10 @@ if(!isset($_SESSION['login'])) {
 <body>
     <?php include 'header.php' ?>
     <h1>Profile</h1>
+    <form action="profile.php" method="POST">
+        <input type="checkbox" name="logout" checked class="d-none">
+        <button type="submit">Logout</button>
+    </form>
     <?php include 'footer.html' ?>
 </body>
 </html>
