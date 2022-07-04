@@ -1,3 +1,11 @@
+<?php
+session_start();
+
+if(!isset($_SESSION['login'])) {
+    header('Location: page404.php');
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,9 +16,8 @@
     <link rel="stylesheet" href="css/index.css" />
 </head>
 <body>
-    <?php include 'header.phtml' ?>
-    <h1>404</h1>
-    <h3>Not found</h3>
+    <?php include 'header.php' ?>
+    <h1>Profile</h1>
     <?php include 'footer.html' ?>
 </body>
 </html>

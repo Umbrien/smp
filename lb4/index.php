@@ -1,6 +1,11 @@
 <?php
 session_start();
 
+
+if(!isset($_SESSION['login'])) {
+    header('Location: page404.php');
+}
+
 $fanta_max = 30;
 $sprite_max = 20;
 $nuts_max = 50;

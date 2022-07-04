@@ -1,5 +1,10 @@
 <?php
 session_start();
+
+if(!isset($_SESSION['login'])) {
+    header('Location: page404.php');
+}
+
 $total = 0;
 if ($_POST['fanta_bool']) {
     if (isset($_SESSION['fanta_amount'])) {
@@ -48,7 +53,7 @@ if ($_POST['nuts_bool']) {
     <link rel="stylesheet" href="css/index.css" />
 </head>
 <body>
-    <?php include 'header.phtml' ?>
+    <?php include 'header.php' ?>
     <h2 class="text-center">Cart</h2>
     <div class="container">
 
