@@ -41,21 +41,36 @@ if(isset($_POST['credentials_submit'])) {
 </head>
 <body>
     <?php include 'header.php' ?>
+    <div class="container">
     <h1>Profile</h1>
 
-    <img src="<?php echo $_SESSION['avatar']; ?>" />
+    <img src="<?php echo $_SESSION['avatar']; ?>" class="rounded-circle" width=125 height=125 />
 
     <form action="" method="POST" enctype="multipart/form-data">
         <input type="file" name="avatar_upload" />
         <button type="submit" name="avatar_submit">Update profile photo</button>
     </form>
 
+    <hr />  
+
     <form action="" method="POST">
+        <div class="form-group">
+            <div class="row">
+                <div class="col">
         <input type="text" name="username" placeholder="username" value="<?php echo $_SESSION['username'] ?>" />
         <input type="text" name="surname" placeholder="surname" value="<?php echo $_SESSION['surname'] ?>" />
         <input type="date" name="date" value="<?php echo $_SESSION['date'] ?>" />
+                </div>
+                <div class="col">
+
         <textarea name="about" placeholder="about"><?php echo $_SESSION['about'] ?></textarea>
-        <button type="submit" name="credentials_submit">update</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+        <button type="submit" name="credentials_submit" class="btn btn-secondary">update</button>
+                </div>
+                <div class="col">
         <?php
         if($_SESSION['surname_empty']) {
                 echo '
@@ -72,12 +87,18 @@ if(isset($_POST['credentials_submit'])) {
                 ';
         }
         ?>
+                </div>
+            </div>
+        </div>
     </form>
 
+    <hr/>
+
     <form action="profile.php" method="POST">
-        <input type="checkbox" name="logout" checked class="d-none">
-        <button type="submit">Logout</button>
+        <button name="logout" type="submit" class="btn btn-danger">Logout</button>
     </form>
+    </div>
+    <br/><br/>
     <?php include 'footer.html' ?>
 </body>
 </html>
