@@ -13,7 +13,8 @@ $password = $_POST['password'];
 if($login == $user['login'] && $password == $user['password']) {
     $_SESSION['login'] = $login;
     $_SESSION['date'] = date("Y-m-d");
-    $_SESSION['avatar'] = $user["avatar"];
+    if(!isset($_SESSION['avatar']))
+        $_SESSION['avatar'] = $user["avatar"];
 
     if(!isset($_SESSION['username']))
         $_SESSION['username'] = $user["login"];
