@@ -94,26 +94,32 @@ if(isset($_POST['credentials_submit'])) {
         <button type="submit" name="credentials_submit" class="btn btn-sm btn-secondary">update</button>
                 </div>
                 <div class="col">
-        <?php
-        if($_SESSION['surname_empty']) {
-                echo '
-            <div class="alert alert-danger" role="alert">
-                Surname should not be empty
-            </div>
-                ';
-        }
-        if($_SESSION['about_short']) {
-                echo '
-            <div class="alert alert-danger" role="alert">
-                About should be more than 50 symbols
-            </div>
-                ';
-        }
-        ?>
                 </div>
             </div>
         </div>
     </form>
+                    <div class="row">
+        <?php
+        if($_SESSION['surname_empty']) {
+                echo '
+                <div class="col">
+            <div class="alert alert-warning" role="alert">
+                Surname should not be empty
+            </div>
+                </div>
+                ';
+        }
+        if($_SESSION['about_short']) {
+                echo '
+                <div class="col">
+            <div class="alert alert-danger" role="alert">
+                About should be more than 50 symbols
+            </div>
+                </div>
+                ';
+        }
+        ?>
+                    </div>
         </div>
     </div>
 
