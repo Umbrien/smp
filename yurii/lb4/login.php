@@ -10,18 +10,22 @@
 <body>
     <?php include 'header.php' ?>
     <div class="container">
+    <h1 class="my-3"><b>Вход в систему</b></h1>
+    <div class="card">
+        <div class="card-body">
+
     <form action="credential.php" method="POST">
         <div class="form-group">
-            <label for="loginInput">Имя пользователя</label>
+            <label for="loginInput"><b>Имя пользователя</b></label>
             <input type="text" class="form-control"
                 id="loginInput" aria-describedby="loginHint"
                 name="login"
-                placeholder="Login"
+                placeholder="Имя пользователя"
             >
             <small id="loginHint" class="form-text text-muted">Мы храним ваши данные в безопасной сессии</small>
         </div>
-        <div class="form-group">
-            <label for="passwordInput">Пароль</label>
+        <div class="form-group my-3">
+            <label for="passwordInput"><b>Пароль</b></label>
             <input type="password" class="form-control"
                 id="passwordInput" aria-describedby="loginHint"
                 name="password"
@@ -39,6 +43,8 @@
             }
         ?>
     </form>
+        </div>
+    </div>
     </div>
     <?php include 'footer.html' ?>
 </body>
