@@ -1,9 +1,9 @@
-<header>
+<header class="mb-4">
     <?php 
 session_start();
     if(!isset($_SESSION['login']))
-        echo '<a href="login.php">Login</a>';
+        echo '<a href="login.php">Войти в систему</a>';
     else 
-        echo 'Home | Products | Cart | <a href="profile.php">Profile</a>';
+        echo 'Главная | Продукты | Корзина | <a href="profile.php">Профиль</a>';
 ?>
 </header>

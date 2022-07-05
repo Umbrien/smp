@@ -42,7 +42,7 @@ if(isset($_POST['credentials_submit'])) {
 <body>
     <?php include 'header.php' ?>
     <div class="container">
-    <h1 class="my-3"><b>Profile</b></h1>
+    <h1 class="my-3"><b>Профиль</b></h1>
 
     <div class="card">
         <div class="card-body">
@@ -50,7 +50,7 @@ if(isset($_POST['credentials_submit'])) {
 
             <form action="" method="POST" enctype="multipart/form-data">
                 <input type="file" name="avatar_upload" />
-                <button type="submit" name="avatar_submit" class="btn btn-sm btn-outline-success">Update profile photo</button>
+                <button type="submit" name="avatar_submit" class="btn btn-sm btn-outline-success">Обновить аватар</button>
             </form>
         </div>
     </div>
@@ -65,14 +65,19 @@ if(isset($_POST['credentials_submit'])) {
                 <div class="col">
                     <div class="row">
                         <div class="col">
-        <input type="text" name="username" placeholder="username" value="<?php echo $_SESSION['username'] ?>"
+        <input type="text" name="username" placeholder="Имя" value="<?php echo $_SESSION['username'] ?>"
             class="form-control form-control-sm"
          />
                         </div>
                         <div class="col">
-        <input type="text" name="surname" placeholder="surname" value="<?php echo $_SESSION['surname'] ?>"
-            class="form-control form-control-sm"
+        <input type="text" name="surname" placeholder="Фамилия" value="<?php echo $_SESSION['surname'] ?>"
+            class="form-control form-control-sm <?php if($_SESSION['surname_empty']) echo 'is-invalid' ?>"
         />
+        <?php
+            if($_SESSION['surname_empty']) {
+                    echo '<div class="invalid-feedback">Укажите фамилию</div>';
+            }
+        ?>
                         </div>
                         <div class="col">
 
@@ -84,14 +89,14 @@ if(isset($_POST['credentials_submit'])) {
                 </div>
                 <div class="col">
 
-        <textarea name="about" placeholder="about"
+        <textarea name="about" placeholder="Краткая информация (не меньше 50 символов)"
             class="form-control"
         ><?php echo $_SESSION['about'] ?></textarea>
                 </div>
             </div>
             <div class="row">
                 <div class="col">
-        <button type="submit" name="credentials_submit" class="btn btn-sm btn-secondary">update</button>
+        <button type="submit" name="credentials_submit" class="btn btn-sm btn-secondary">Обновить</button>
                 </div>
                 <div class="col">
                 </div>
@@ -100,20 +105,11 @@ if(isset($_POST['credentials_submit'])) {
     </form>
                     <div class="row">
         <?php
-        if($_SESSION['surname_empty']) {
-                echo '
-                <div class="col">
-            <div class="alert alert-warning" role="alert">
-                Surname should not be empty
-            </div>
-                </div>
-                ';
-        }
         if($_SESSION['about_short']) {
                 echo '
                 <div class="col">
             <div class="alert alert-danger" role="alert">
-                About should be more than 50 symbols
+                Описание дожлно быть не меньше 50 символов
             </div>
                 </div>
                 ';
@@ -124,10 +120,10 @@ if(isset($_POST['credentials_submit'])) {
     </div>
 
     <form action="profile.php" method="POST">
-        <button name="logout" type="submit" class="btn btn-danger">Logout</button>
+        <button name="logout" type="submit" class="btn btn-danger">Bыход</button>
     </form>
     </div>
-    <br/><br/>
+
     <?php include 'footer.html' ?>
 </body>
 </html>

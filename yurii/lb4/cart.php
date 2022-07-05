@@ -48,37 +48,37 @@ if ($_POST['nuts_bool']) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cart@Magazin</title>
+    <title>Корзина@Магазин</title>
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/index.css" />
 </head>
 <body>
     <?php include 'header.php' ?>
-    <h2 class="text-center">Cart</h2>
+    <h2 class="text-center">Корзина</h2>
     <div class="container">
 
-    <table class="table table-striped table-bordered border-warning">
+    <table class="table table-striped table-bordered table-warning">
         <thead class="thead-dark">
         <tr>
-            <td>id</td>
-            <td>name</td>
-            <td>price</td>
-            <td>count</td>
-            <td>sym</td>
+            <td>#</td>
+            <td>Именование</td>
+            <td>цена</td>
+            <td>кол-во</td>
+            <td>сумма</td>
             <td></td>
         </tr>
         </thead>
         <tbody>
         <tr>
             <?php
-                $sum = isset($_SESSION["fanta_amount"]) ? $_SESSION["fanta_amount"] * 6.0 : 0;
+                $sum = isset($_SESSION["fanta_amount"]) ? $_SESSION["fanta_amount"] * 3 : 0;
                 if (isset($_SESSION["fanta_amount"])) {
-                    echo "<td>1</td> <td>Fanta</td> <td>6.00</td> <td>" . $_SESSION["fanta_amount"] . "</td> <td>".
+                    echo "<td>1</td> <td>Шоколадный батончик</td> <td>3.00</td> <td>" . $_SESSION["fanta_amount"] . "</td> <td>".
                         $sum .
                     '</td> <td>
                         <form action="cart.php" method="POST">
                         <input type="checkbox" name="delete_fanta" checked class="d-none">
-                        <input type="submit" value="Delete" >
+                        <input type="submit" value="Удалить" >
                         </form>
                     </td>';
                     $total += $sum;
@@ -87,14 +87,14 @@ if ($_POST['nuts_bool']) {
         </tr>
         <tr>
             <?php
-                $sum = isset($_SESSION["sprite_amount"]) ? $_SESSION["sprite_amount"] * 14.0 : 0;
+                $sum = isset($_SESSION["sprite_amount"]) ? $_SESSION["sprite_amount"] * 7.0 : 0;
                 if (isset($_SESSION["sprite_amount"])) {
-                    echo "<td>2</td> <td>Sprite</td> <td>14.00</td> <td>" . $_SESSION["sprite_amount"] . "</td> <td>".
+                    echo "<td>2</td> <td>Чипсы</td> <td>7.00</td> <td>" . $_SESSION["sprite_amount"] . "</td> <td>".
                         $sum .
                     '</td> <td>
                         <form action="cart.php" method="POST">
                         <input type="checkbox" name="delete_sprite" checked class="d-none">
-                        <input type="submit" value="Delete" >
+                        <input type="submit" value="Удалить" >
                         </form>
                     </td>';
                     $total += $sum;
@@ -103,14 +103,14 @@ if ($_POST['nuts_bool']) {
         </tr>
         <tr>
             <?php
-                $sum = isset($_SESSION["nuts_amount"]) ? $_SESSION["nuts_amount"] * 14.0 : 0;
+                $sum = isset($_SESSION["nuts_amount"]) ? $_SESSION["nuts_amount"] * 8.0 : 0;
                 if (isset($_SESSION["nuts_amount"])) {
-                    echo "<td>3</td> <td>Nuts</td> <td>5.2</td> <td>" . $_SESSION["nuts_amount"] . "</td> <td>".
+                    echo "<td>3</td> <td>Мороженное</td> <td>8.00</td> <td>" . $_SESSION["nuts_amount"] . "</td> <td>".
                         $sum .
                     '</td> <td>
                         <form action="cart.php" method="POST">
                         <input type="checkbox" name="delete_nuts" checked class="d-none">
-                        <input type="submit" value="Delete" >
+                        <input type="submit" value="Удалить" >
                         </form>
                     </td>';
                     $total += $sum;
@@ -119,14 +119,14 @@ if ($_POST['nuts_bool']) {
         </tr>
         <tr>
             <?php
-            echo "<td>Total</td> <td></td> <td></td> <td></td> <td>$total</td> <td></td>";
+            echo "<td>Всего</td> <td></td> <td></td> <td></td> <td>$total</td> <td></td>";
             ?>
         </tr>
         </tbody>
     </table>
-    <input type="button" class="btn btn-danger" value="Cancel">
-    <input type="button" class="btn btn-success" value="pay">
-    <?php if ($total == 0) echo '<h5>Cart is empty. Go to <a href="index.php">shop</a></h5><br>'; ?>
+    <input type="button" class="btn btn-warning" value="Отмена">
+    <input type="button" class="btn btn-outline-success" value="Оплатить">
+    <?php if ($total == 0) echo '<h5>Корзина пуста. Перейдите в <a href="index.php">магазин</a></h5><br>'; ?>
     </div>
     <?php include 'footer.html' ?>
 </body>
