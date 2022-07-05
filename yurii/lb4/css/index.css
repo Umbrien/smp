@@ -1,0 +1,31 @@
+body {
+    background-color: rgb(175, 214, 175);
+}
+
+a {
+    color: yellow;
+}
+
+.card, .card-body {
+    border-radius: 25px;
+}
+.card-body {
+    background-color: rgb(219, 255, 219);
+}
+
+header {
+    width: 100%;
+    color: whitesmoke;
+    background-color: rgb(86, 194, 82);
+    padding: 20px;
+    border-radius: 0 0 25px 25px;
+}
+
+footer {
+    width: 100%;
+    color: whitesmoke;
+    background-color: rgb(106, 202, 87);
+    padding: 20px;
+    text-align: center;
+    border-radius: 25px 25px 0 0;
+}
