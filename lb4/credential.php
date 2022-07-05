@@ -15,9 +15,12 @@ if($login == $user['login'] && $password == $user['password']) {
     $_SESSION['date'] = date("Y-m-d");
     $_SESSION['avatar'] = $user["avatar"];
 
-    $_SESSION['username'] = $user["login"];
-    $_SESSION['surname'] = '';
-    $_SESSION['about'] = '';
+    if(!isset($_SESSION['username']))
+        $_SESSION['username'] = $user["login"];
+    if(!isset($_SESSION['surname']))
+        $_SESSION['surname'] = '';
+    if(!isset($_SESSION['about']))
+        $_SESSION['about'] = '';
     $_SESSION['surname_empty'] = false;
     $_SESSION['about_short'] = false;
 
